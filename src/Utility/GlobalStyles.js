@@ -1,0 +1,77 @@
+import { StyleSheet } from 'react-native';
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    loginTopView: {
+        alignItems: 'center',
+        marginBottom: 40
+    },
+    signTopView:{
+        fontSize: 30,
+         marginTop: 30,
+         marginBottom: 28,
+         paddingHorizontal: 15,
+        color:'#2c3e50'
+    },
+    input: {
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
+        alignItems: 'center',
+        marginBottom: 10,       
+    },
+    image: {
+        height: 130,
+        width: 130,
+        marginTop: 40
+    },
+    text1: {
+        fontSize: 28,
+        color: '#2c3e50'
+    },
+    inputView: {
+        paddingHorizontal: 20,
+        marginBottom: 25
+    },
+    signUpInputView: {
+        paddingHorizontal: 15,
+        marginBottom: 30
+    },
+    loginButton: {
+        backgroundColor: '#AD40AF',
+        padding: 12,
+        borderRadius: 10,
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 15
+    },
+    signUpButton: {
+        marginBottom: 200
+    },
+
+    loginText: {
+        textAlign: 'center',
+        fontWeight: '500',
+        fontSize: 18,
+        color: '#fff'
+    },
+    forgetButton: {
+        fontSize: 14,
+        textAlign: 'center',
+        color: '#AD40AF',
+    },
+    bottomView: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    valid: {
+        color: 'red',
+        marginLeft: 15
+    }
+
+});
+
+export default styles;
