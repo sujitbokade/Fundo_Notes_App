@@ -1,13 +1,14 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {createStackNavigator} from '@react-navigation/stack'
+import AppDrawer from "./AppDrawer";
 import Home from "../Screen/Home";
 
-const stack = createNativeStackNavigator();
+const stack = createStackNavigator();
 
 const AppStack = () => {
     return (
         <stack.Navigator>
-            <stack.Screen name='Home' component={Home}/>
+            <stack.Screen name='Drawer' component={AppDrawer} options={{header: () => null}}/>
         </stack.Navigator>
     )
 }

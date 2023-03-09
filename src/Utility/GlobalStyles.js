@@ -9,24 +9,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 40
     },
-    signTopView:{
+    signTopView: {
         fontSize: 30,
-         marginTop: 30,
-         marginBottom: 28,
-         paddingHorizontal: 15,
-        color:'#2c3e50'
+        marginTop: 30,
+        marginBottom: 28,
+        paddingHorizontal: 15,
+        color: '#2c3e50'
     },
     input: {
         flexDirection: 'row',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
         alignItems: 'center',
-        marginBottom: 10,       
-    },
+        marginBottom: 10,
+    }, 
     image: {
         height: 130,
         width: 130,
         marginTop: 40
+    },
+    forgotImage: {
+        height: 200,
+        width: 200,
+        marginTop: 10
     },
     text1: {
         fontSize: 28,

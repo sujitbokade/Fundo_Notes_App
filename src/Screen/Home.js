@@ -2,21 +2,29 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import styles from '../Utility/GlobalStyles'
 import { AuthContext } from '../navigation/AuthProvider';
+import Bottombar from '../Components/BottomBar';
+import TopBar from '../Components/TopBar';
 
-const Home = () => {
+const Home = ({navigation}) => {
 
-  const {logout} = useContext(AuthContext)
+  const { logout } = useContext(AuthContext)
 
   return (
     <View style={{
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1
+      flex: 1,
+      backgroundColor: 'white'
     }}>
-      <Text style={{ fontSize: 25, marginBottom:20 }}>Home</Text>
-      <TouchableOpacity onPress={() => logout()} style={styles.loginButton}>
-        <Text style={styles.loginText}> Sign-Out </Text>
-      </TouchableOpacity>
+      <View style={{marginBottom:300}}>
+        <TopBar onPress={()=> {navigation.openDrawer()}} />
+      </View>
+      <View style={{ marginBottom: 218, alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => logout()} style={styles.loginButton}>
+          <Text style={styles.loginText}> Sign-Out </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <Bottombar />
+      </View>
     </View>
   )
 }

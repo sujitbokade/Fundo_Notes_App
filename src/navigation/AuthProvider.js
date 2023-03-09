@@ -31,7 +31,15 @@ export const AuthProvider = ({children}) => {
                     } catch (e) {
                         alert(console.log(e))
                     }
-                }
+                },
+                forgetPassword: async (email) => {
+                    try {
+                      await auth().sendPasswordResetEmail(email);
+                      alert("Password reset link sent")
+                    } catch (e) {
+                      console.log(e);
+                    }
+                  },
             }}
         >
             {children}

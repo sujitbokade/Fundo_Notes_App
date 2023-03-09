@@ -1,5 +1,5 @@
 
-const Constants = {
+export default {
  heading: 'FUNDO-NOTES',
  email: 'enter your mail',
  password: 'password',
@@ -12,7 +12,15 @@ const Constants = {
  signUpButton: 'Sign-Up',
  alreadyReg: 'Already Registered?',
  validEmail: 'please enter a valid email',
- validPass: 'please enter a valid password'
+ validPass: 'please enter a valid password',
+ submit: 'Submit',
+ search: 'Search your notes',
+ notes:'Notes',
+ remainder:'Remainder',
+ label: 'Create new label',
+ archive: 'Archive',
+ deleted: 'Trash',
+ setting:'Setting',
+ logout: 'SignOut'
 
 }
-export default Constants;

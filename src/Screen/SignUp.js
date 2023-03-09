@@ -4,7 +4,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import styles from '../Utility/GlobalStyles'
-import Constants from '../Constants/Constants'
+import Names from '../Constants/Names'
 import { AuthContext } from '../navigation/AuthProvider'
 
 const SignUp = (props) => {
@@ -20,7 +20,7 @@ const SignUp = (props) => {
         secureTextEntry: true
     })
 
-    const{register} = useContext(AuthContext)
+    const { register } = useContext(AuthContext)
 
     const checkValidation = (text) => {
         const confirmPass = text
@@ -34,20 +34,20 @@ const SignUp = (props) => {
 
     const updateSecureTextEntryP = () => {
         setPassData({
-            ...passData,
+            passData,
             secureTextEntry: !passData.secureTextEntry
         })
     }
     const updateSecureTextEntryCP = () => {
         setConPassData({
-            ...conPassData,
+            conPassData,
             secureTextEntry: !conPassData.secureTextEntry
         })
     }
 
     return (
         <View>
-            <Text style={styles.signTopView}>{Constants.registration}</Text>
+            <Text style={styles.signTopView}>{Names.registration}</Text>
 
             <View style={styles.signUpInputView}>
                 <View style={styles.input}>
@@ -58,16 +58,16 @@ const SignUp = (props) => {
                 </View>
                 <View style={styles.input}>
                     <MaterialIcon name='alternate-email' size={20} style={{ marginRight: 5 }} />
-                    <TextInput placeholder={Constants.email}
-                    value={email}
+                    <TextInput placeholder={Names.email}
+                        value={email}
                         onChangeText={(data) => setEmail(data)}
                     />
                 </View>
 
                 <View style={styles.input}>
                     <Ionicons name='ios-lock-closed-outline' size={20} style={{ marginRight: 5 }} />
-                    <View style={{width: 280}}>
-                        <TextInput placeholder={Constants.password}
+                    <View style={{ width: 280 }}>
+                        <TextInput placeholder={Names.password}
                             secureTextEntry={passData.secureTextEntry ? true : false}
                             value={password}
                             onChangeText={(text) => setPassword(text)}
@@ -84,8 +84,8 @@ const SignUp = (props) => {
 
                 <View style={styles.input}>
                     <Ionicons name='ios-lock-closed-outline' size={20} style={{ paddingRight: 5 }} />
-                    <View style={{width: 280}}>
-                        <TextInput placeholder={Constants.confirmPass}
+                    <View style={{ width: 280 }}>
+                        <TextInput placeholder={Names.confirmPass}
                             secureTextEntry={conPassData.secureTextEntry ? true : false}
                             onChangeText={(text) => checkValidation(text)}
                         />
@@ -103,14 +103,14 @@ const SignUp = (props) => {
             </View>
             <View style={styles.signUpButton}>
                 <TouchableOpacity onPress={() => register(email, password)} style={styles.loginButton}>
-                    <Text style={styles.loginText}>{Constants.signUpButton}</Text>
+                    <Text style={styles.loginText}>{Names.signUpButton}</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomView}>
-                <Text style={{ fontSize: 14, color: '#000' }}>{Constants.alreadyReg}</Text>
+                <Text style={{ fontSize: 14, color: '#000' }}>{Names.alreadyReg}</Text>
                 <TouchableOpacity>
                     <Text style={{ fontSize: 15, color: '#AD40AF' }}
-                        onPress={() => props.navigation.navigate('Login')}> {Constants.loginButton}</Text>
+                        onPress={() => props.navigation.navigate('Login')}> {Names.loginButton}</Text>
                 </TouchableOpacity>
             </View>
         </View>
