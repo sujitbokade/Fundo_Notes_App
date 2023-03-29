@@ -61,8 +61,8 @@ export default Bottombar
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 70,
-    backgroundColor: '#DFDADA',
+    height: 60,
+    backgroundColor: '#eacceb',
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 20,
     borderWidth: 9,
-    backgroundColor: '#DFDADA',
+    backgroundColor: '#eacceb',
     marginLeft: 50,
     justifyContent: 'center',
     alignItems: 'center',

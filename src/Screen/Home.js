@@ -1,32 +1,36 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
-import styles from '../Utility/GlobalStyles'
-import { AuthContext } from '../navigation/AuthProvider';
+import { StyleSheet, View } from 'react-native'
 import Bottombar from '../Components/BottomBar';
 import TopBar from '../Components/TopBar';
 
-const Home = ({navigation}) => {
-
-  const { logout } = useContext(AuthContext)
+const Home = ({ navigation }) => {
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: 'white'
-    }}>
-      <View style={{marginBottom:300}}>
-        <TopBar onPress={()=> {navigation.openDrawer()}} />
-      </View>
-      <View style={{ marginBottom: 218, alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => logout()} style={styles.loginButton}>
-          <Text style={styles.loginText}> Sign-Out </Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.topBar}>
       <View>
+        <TopBar onPress={() => { navigation.openDrawer() }} />
+      </View>
+      <View style={{flex: 3}}>
+
+      </View>
+      <View style={styles.bottomBar}>
         <Bottombar />
       </View>
+
     </View>
-  )
-}
+
+  );
+};
 
 export default Home
+
+const styles = StyleSheet.create({
+  topBar: {
+    flex: 1,
+    alignContent:'center',
+    backgroundColor:'white'   
+  },
+  bottomBar: {
+    position: 'relative',
+    justifyContent: 'flex-end'
+  }
+})

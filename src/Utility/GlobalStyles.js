@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import {Color} from './Themes'
 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:3 ,
     },
     loginTopView: {
         alignItems: 'center',
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     loginButton: {
-        backgroundColor: '#AD40AF',
+        backgroundColor:Color.Button,
         padding: 12,
         borderRadius: 10,
         marginLeft: 30,
@@ -66,16 +67,33 @@ const styles = StyleSheet.create({
     forgetButton: {
         fontSize: 14,
         textAlign: 'center',
-        color: '#AD40AF',
+        color: Color.Link ,
     },
     bottomView: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     valid: {
-        color: 'red',
+        color: Color.Errors,
         marginLeft: 15
-    }
+    },
+    googleText: {
+        textAlign: 'center',
+        fontWeight: '500',
+        fontSize: 18,
+        color: Color.googleText,
+        
+    },
+    googleButton: {
+        backgroundColor:Color.googleBackground,
+        padding: 12,
+        borderRadius: 10,
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom:50,
+        flexDirection: 'row',
+        
+    },
 
 });
 

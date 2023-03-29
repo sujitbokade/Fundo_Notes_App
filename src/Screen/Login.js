@@ -3,8 +3,10 @@ import React, { useState, useContext } from 'react'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
+import Google from 'react-native-vector-icons/AntDesign'
 import styles from '../Utility/GlobalStyles'
 import Names from '../Constants/Names'
+import { Color } from '../Utility/Themes'
 import { AuthContext } from '../navigation/AuthProvider'
 
 const Login = ({ navigation }) => {
@@ -12,13 +14,14 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [checkValidEmail, setCheckValidEmail] = useState('');
     const [checkValidPassword, setCheckValidPassword] = useState('');
+    const [error, setError] = useState('')
 
     const [data, setData] = useState({
         password: '',
         secureTextEntry: true
     })
 
-    const { login } = useContext(AuthContext)
+    const { login, googleLogin} = useContext(AuthContext)
 
     const updateSecureTextEntry = () => {
         setData({
@@ -46,6 +49,15 @@ const Login = ({ navigation }) => {
         }
     };
 
+    const fireBaseError = (code) => {
+        const temp = {}
+        if (code == 'auth/user-not-found') {
+            temp.email = "User not found"
+        }
+        setError(temp)
+    }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.loginTopView}>
@@ -70,6 +82,7 @@ const Login = ({ navigation }) => {
                 ) : (
                     null
                 )}
+                <Text style={{ color: 'red' }}>{error.email}</Text>
 
                 <View style={styles.input}>
                     <Ionicons name='ios-lock-closed-outline' size={20} style={{ marginRight: 5 }} />
@@ -98,23 +111,30 @@ const Login = ({ navigation }) => {
             </View>
 
             <View>
-                <TouchableOpacity onPress={() => login(email, password)} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => login(email, password, fireBaseError)} style={styles.loginButton}>
                     <Text style={styles.loginText}>{Names.loginButton}</Text>
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity 
-                style={{ marginBottom: 150 }}
-                onPress={() => navigation.navigate('ForgetPassword')}
+                <TouchableOpacity
+                    style={{ marginBottom: 80}}
+                    onPress={() => navigation.navigate('ForgetPassword')}
                 >
                     <Text style={styles.forgetButton}>{Names.forgetPass}</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.googleButton}>
+                <Google name='google' size={25} style={{ marginRight: 50, color:Color.googleText }}/>
+                <TouchableOpacity
+                    onPress={() => googleLogin()}>
+                    <Text style={styles. googleText}>SignIn With Google</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.bottomView}>
                 <Text style={{ fontSize: 14, color: '#000' }}>{Names.account}</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 15, color: '#AD40AF' }}
+                    <Text style={{ fontSize: 15, color: Color.Link}}
                         onPress={() => navigation.navigate('SignUp')}> {Names.signUp}</Text>
                 </TouchableOpacity>
             </View>

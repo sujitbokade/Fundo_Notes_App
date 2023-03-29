@@ -7,8 +7,8 @@ import Names from '../Constants/Names'
 import Sizes from '../Constants/Sizes';
 
 class Drawer extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
     }
     render(props) {
         return (
@@ -74,7 +74,7 @@ class Drawer extends Component {
                         </TouchableOpacity>    
                     </View>
                     <View style= {styles.logoutView}>
-                    <TouchableOpacity style={styles.logout}>
+                    <TouchableOpacity style={styles.logout} >
                             <MaterialCommunityIcons
                                 style={styles.icon}
                                 name="logout"

@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import styles from '../Utility/GlobalStyles'
 import Names from '../Constants/Names'
+import { Color } from '../Utility/Themes'
 import { AuthContext } from '../navigation/AuthProvider'
 
 const SignUp = (props) => {
@@ -109,7 +110,7 @@ const SignUp = (props) => {
             <View style={styles.bottomView}>
                 <Text style={{ fontSize: 14, color: '#000' }}>{Names.alreadyReg}</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 15, color: '#AD40AF' }}
+                    <Text style={{ fontSize: 15, color: Color.Link}}
                         onPress={() => props.navigation.navigate('Login')}> {Names.loginButton}</Text>
                 </TouchableOpacity>
             </View>
