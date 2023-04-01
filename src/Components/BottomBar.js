@@ -3,6 +3,7 @@ import React from 'react'
 import Iconicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Sizes from '../Constants/Sizes'
+import { Color } from '../Utility/Themes'
 
 const Bottombar = () => {
   return (
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 60,
-    backgroundColor: '#eacceb',
+    backgroundColor: Color.Theme,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },

@@ -3,5 +3,6 @@ export const Color = {
     Link: 'blue',
     Errors: 'red',
     googleBackground: '#f5e7ea',
-    googleText: '#de4d41'
+    googleText: '#de4d41',
+    Theme: '#eacceb'
   };

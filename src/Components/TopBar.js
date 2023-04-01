@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Sizes from '../Constants/Sizes'
 import Names from '../Constants/Names'
 import Popup from './Popup'
+import { Color } from '../Utility/Themes'
 
 
 const TopBar = props => {
@@ -40,7 +41,7 @@ export default TopBar;
 const styles = StyleSheet.create({
     container: {
         width: '95%',
-        backgroundColor: '#eacceb',
+        backgroundColor: Color.Theme,
         flexDirection: 'row',
         justifyContent: 'space-around',
         borderRadius: 25,

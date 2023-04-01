@@ -97,6 +97,7 @@ android {
 
     namespace "com.fundoonotes"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.fundoonotes"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -150,14 +151,7 @@ android {
     }
 }
 
-// plugins {
-//   id 'com.android.application'
 
-//   // Add the Google services Gradle plugin
-//   id 'com.google.gms.google-services'
-
-//   ...
-// }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin

@@ -10,6 +10,7 @@ import { AuthContext } from '../navigation/AuthProvider'
 
 const SignUp = (props) => {
     const [isError, setIsError] = useState("")
+    const[fullName, setFullName] = useState('')
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPass, setConfirmPass] = useState("")
@@ -46,6 +47,10 @@ const SignUp = (props) => {
         })
     }
 
+    const submit = () => {
+        register(fullName, email, password)
+    }
+
     return (
         <View>
             <Text style={styles.signTopView}>{Names.registration}</Text>
@@ -54,6 +59,8 @@ const SignUp = (props) => {
                 <View style={styles.input}>
                     <Ionicons name='person-outline' size={20} style={{ marginRight: 5 }} />
                     <TextInput placeholder='user full name'
+                                value={fullName}
+                                onChangeText={(data) => setFullName(data)}
                     />
 
                 </View>
@@ -103,7 +110,7 @@ const SignUp = (props) => {
 
             </View>
             <View style={styles.signUpButton}>
-                <TouchableOpacity onPress={() => register(email, password)} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => submit()} style={styles.loginButton}>
                     <Text style={styles.loginText}>{Names.signUpButton}</Text>
                 </TouchableOpacity>
             </View>

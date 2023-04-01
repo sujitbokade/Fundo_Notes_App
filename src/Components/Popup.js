@@ -1,24 +1,62 @@
-import { Text, View, Modal, StyleSheet, Button, Pressable, TouchableOpacity } from 'react-native'
-import React, {useState,useContext } from 'react';
+import { Text, View, Modal, StyleSheet, Button, Pressable, TouchableOpacity, PermissionsAndroid } from 'react-native'
+import React, { useState, useContext, useEffect } from 'react';
 import { Avatar } from 'react-native-elements'
 import { AuthContext } from '../navigation/AuthProvider';
+import { fetchUserData } from '../Services/userServices';
+import BottomSheet from './BottomSheet';
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
+
+const imagePath = 'https://images.unsplash.com/photo-1587040164251-a349c7b1b7ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80'
 
 const Popup = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { logout } = useContext(AuthContext)
+  const { logout, user } = useContext(AuthContext)
+  const [userData, setUserData] = useState('')
+  const [visible, setVisible] = useState(false)
+  const [image, setImage] = useState(null)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    const data = await fetchUserData(user.uid)
+    setUserData(data)
+  }
+
+  const openGallery = async () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      setImage(image.path)
+    });
+  };
+  
+  const openCamera = async () => {
+  ImagePicker.openCamera({
+    width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      setImage(image.path)
+  })
+}
+
   return (
     <>
-    <View>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Avatar
-          rounded
-          size={27}
-          source={{
-            uri:'https://images.unsplash.com/photo-1587040164251-a349c7b1b7ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80'
-              
-          }}
-        />
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <Avatar
+            rounded
+            size={27}
+            source={
+              image ? {uri:image} :{uri:imagePath}
+            }
+          />
+        </TouchableOpacity>
       </View>
       {modalVisible && (
         <Modal animationType="fade" transparent={true} visible={true}>
@@ -27,24 +65,34 @@ const Popup = () => {
             onPress={() => setModalVisible(false)}></TouchableOpacity>
           <View style={styles.modalView}>
             <View style={styles.modalAvatar}>
-          <Avatar
-          size='medium'
-          rounded
-          source={{
-            uri:'https://images.unsplash.com/photo-1587040164251-a349c7b1b7ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80'
-              
-          }}
-        />
-        </View>
-            <Text style={styles.modalText}>Username</Text>
+              <TouchableOpacity onPress={() => setVisible(true)}>
+                <Avatar
+                  size='medium'
+                  rounded
+                  source={
+                    image ? {uri:image} :{uri:imagePath}
+                  }
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.modalText}>{userData.fullName}</Text>
             <Pressable
               style={styles.button}
               onPress={() => logout()}>
               <Text style={styles.textStyle}>Logout</Text>
             </Pressable>
           </View>
+          <BottomSheet
+            visible={visible}
+            hide={() => setVisible(false)}
+            openGallery={()=>openGallery()}
+            openCamera={()=>openCamera()}
+            />
         </Modal>
       )}
+
+
     </>
   );
 }
@@ -68,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     paddingVertical: 30,
-    paddingHorizontal:50,
+    paddingHorizontal: 50,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -99,7 +147,7 @@ const styles = StyleSheet.create({
     color: "black"
   },
   modalAvatar: {
-    marginBottom:15
+    marginBottom: 15
   }
 });
 
