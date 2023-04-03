@@ -5,7 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Sizes from '../Constants/Sizes'
 import { Color } from '../Utility/Themes'
 
-const Bottombar = () => {
+const Bottombar = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.firstIcon}>
@@ -48,7 +48,7 @@ const Bottombar = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.backIcon} onPress={() => { }}>
+      <TouchableOpacity style={styles.backIcon} onPress={props.onPress}>
         <View style={styles.plusIcon}>
           <FontAwesome5 name="plus" size={30} style={{ color: '#e01f99' }} />
         </View>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 20,
-    borderWidth: 9,
+    borderWidth: 10,
     backgroundColor: '#eacceb',
     marginLeft: 50,
     justifyContent: 'center',

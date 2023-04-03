@@ -10,7 +10,7 @@ import { AuthContext } from '../navigation/AuthProvider'
 
 const SignUp = (props) => {
     const [isError, setIsError] = useState("")
-    const[fullName, setFullName] = useState('')
+    const[fullName, setFullName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPass, setConfirmPass] = useState("")
@@ -48,7 +48,7 @@ const SignUp = (props) => {
     }
 
     const submit = () => {
-        register(fullName, email, password)
+        register(fullName , email, password)
     }
 
     return (

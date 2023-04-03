@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
 
       </View>
       <View style={styles.bottomBar}>
-        <Bottombar />
+        <Bottombar onPress={() => {navigation.navigate("CreateNote")}} />
       </View>
 
     </View>

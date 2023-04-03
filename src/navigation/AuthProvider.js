@@ -41,8 +41,7 @@ export const AuthProvider = ({ children }) => {
                     try {
                        const userDetails =  await auth().createUserWithEmailAndPassword(email, password);
                        addUserData(fullName, email, userDetails.user.uid)
-                       setUser(userDetails)
-
+                       
                     } catch (e) {
                         alert(console.log(e))
                     }

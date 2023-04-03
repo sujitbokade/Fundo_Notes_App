@@ -1,37 +1,66 @@
-import { Text, View, Modal, StyleSheet, Button, Pressable, TouchableOpacity, PermissionsAndroid } from 'react-native'
-import React, { useState, useContext, useEffect } from 'react';
+import { Text, View, Modal, StyleSheet, Button, Pressable, TouchableOpacity, PermissionsAndroid, Alert } from 'react-native'
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Avatar } from 'react-native-elements'
 import { AuthContext } from '../navigation/AuthProvider';
-import { fetchUserData } from '../Services/userServices';
+import { fetchUserData, updateUserData } from '../Services/userServices';
 import BottomSheet from './BottomSheet';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 const imagePath = 'https://images.unsplash.com/photo-1587040164251-a349c7b1b7ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80'
 
 const Popup = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { logout, user } = useContext(AuthContext)
-  const [userData, setUserData] = useState('')
   const [visible, setVisible] = useState(false)
   const [image, setImage] = useState(null)
-
+  const[fullName, setFullName] = useState("")
+  
   useEffect(() => {
-    fetchData()
-  }, [])
+    try{
+      dataReceiver()
+    } catch (e){
+      console.log(e)
+    }
+  }, [uploadImage, dataReceiver])
 
-  const fetchData = async () => {
-    const data = await fetchUserData(user.uid)
-    setUserData(data)
-  }
+ 
+  const uploadImage = useCallback( async (img) => {
+      const uploadUri = img
+      const fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+      try {
+        await storage().ref(fileName).putFile(uploadUri)
 
+        const url = await storage().ref(fileName).getDownloadURL()
+
+        updateUserData(user, url)
+
+        Alert.alert(
+          "Image uploaded Successfully "
+        )
+      } catch(e) {
+        console.log(e)
+      }
+  },[user])
+
+  const dataReceiver = useCallback( async () => {
+    try {
+      const userData = await fetchUserData(user);
+      setFullName(userData[0]);
+      setImage(userData[1]);
+    } catch (e) {
+      console.log(e);
+    }
+  },[user])
+  
   const openGallery = async () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       cropping: true
     }).then(image => {
-      setImage(image.path)
+      uploadImage(image.path)
+      console.log(image)
     });
   };
   
@@ -41,7 +70,7 @@ const Popup = () => {
       height: 400,
       cropping: true
     }).then(image => {
-      setImage(image.path)
+      uploadImage(image.path)
   })
 }
 
@@ -76,7 +105,7 @@ const Popup = () => {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.modalText}>{userData.fullName}</Text>
+            <Text style={styles.modalText}>{fullName}</Text>
             <Pressable
               style={styles.button}
               onPress={() => logout()}>
