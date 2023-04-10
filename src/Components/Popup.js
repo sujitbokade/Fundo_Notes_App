@@ -13,46 +13,43 @@ const Popup = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { logout, user } = useContext(AuthContext)
   const [visible, setVisible] = useState(false)
-  const [image, setImage] = useState(null)
-  const[fullName, setFullName] = useState("")
+  const [image, setImage] = useState("")
+  const [fullName, setFullName] = useState("")
+  const [userDetail, setUserDetail] = useState()
   
   useEffect(() => {
-    try{
       dataReceiver()
-    } catch (e){
-      console.log(e)
-    }
   }, [uploadImage, dataReceiver])
 
- 
-  const uploadImage = useCallback( async (img) => {
-      const uploadUri = img
-      const fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
-      try {
-        await storage().ref(fileName).putFile(uploadUri)
+  const uploadImage = useCallback(async (img) => {
+    const uploadUri = img
+    const fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+    try {
+      await storage().ref(fileName).putFile(uploadUri)
 
-        const url = await storage().ref(fileName).getDownloadURL()
+      const url = await storage().ref(fileName).getDownloadURL()
 
-        updateUserData(user, url)
+      updateUserData(user, url)
+      dataReceiver()
+      Alert.alert(
+        "Image uploaded Successfully"
+      )
+    } catch (e) {
+      console.log(e)
+    }
+  }, [user])
 
-        Alert.alert(
-          "Image uploaded Successfully "
-        )
-      } catch(e) {
-        console.log(e)
-      }
-  },[user])
-
-  const dataReceiver = useCallback( async () => {
+  const dataReceiver = useCallback(async () => {
     try {
       const userData = await fetchUserData(user);
       setFullName(userData[0]);
       setImage(userData[1]);
+      setUserDetail(userData)
     } catch (e) {
       console.log(e);
     }
-  },[user])
-  
+  }, [user])
+
   const openGallery = async () => {
     ImagePicker.openPicker({
       width: 300,
@@ -63,16 +60,16 @@ const Popup = () => {
       console.log(image)
     });
   };
-  
+
   const openCamera = async () => {
-  ImagePicker.openCamera({
-    width: 300,
+    ImagePicker.openCamera({
+      width: 300,
       height: 400,
       cropping: true
     }).then(image => {
       uploadImage(image.path)
-  })
-}
+    })
+  }
 
   return (
     <>
@@ -82,7 +79,7 @@ const Popup = () => {
             rounded
             size={27}
             source={
-              image ? {uri:image} :{uri:imagePath}
+              image ? { uri: image } : { uri: imagePath }
             }
           />
         </TouchableOpacity>
@@ -99,7 +96,7 @@ const Popup = () => {
                   size='medium'
                   rounded
                   source={
-                    image ? {uri:image} :{uri:imagePath}
+                    image ? { uri: image } : { uri: imagePath }
                   }
                 />
               </TouchableOpacity>
@@ -115,13 +112,11 @@ const Popup = () => {
           <BottomSheet
             visible={visible}
             hide={() => setVisible(false)}
-            openGallery={()=>openGallery()}
-            openCamera={()=>openCamera()}
-            />
+            openGallery={() => openGallery()}
+            openCamera={() => openCamera()}
+          />
         </Modal>
       )}
-
-
     </>
   );
 }

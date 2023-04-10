@@ -18,7 +18,7 @@ class Drawer extends Component {
                         <Text style={styles.logoText}>{Names.heading}</Text>
                     </View>
                     <View style={styles.labelView}>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("Note")}}>
                             <Icon
                                 style={styles.icon}
                                 name="bulb-outline"

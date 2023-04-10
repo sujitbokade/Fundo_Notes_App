@@ -8,12 +8,12 @@ import Popup from './Popup'
 import { Color } from '../Utility/Themes'
 
 
-const TopBar = props => {
+const TopBar = ({onPress}) => {
 
     return (
         <View style={styles.container}>
             <View style={styles.barStyle}>
-                <TouchableOpacity onPress={props.onPress}>
+                <TouchableOpacity onPress={onPress}>
                     <FontAwesome5 name='bars'
                         size={Sizes.smallButton}
                         color='black' />
@@ -30,7 +30,7 @@ const TopBar = props => {
                 </TouchableOpacity>
             </View>
             <View>
-            <Popup/>
+            <Popup />
             </View>  
         </View>
     )

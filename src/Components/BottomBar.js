@@ -5,7 +5,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Sizes from '../Constants/Sizes'
 import { Color } from '../Utility/Themes'
 
-const Bottombar = (props) => {
+
+const Bottombar = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.firstIcon}>
@@ -48,7 +49,7 @@ const Bottombar = (props) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.backIcon} onPress={props.onPress}>
+      <TouchableOpacity style={styles.backIcon} onPress={() => navigation.navigate("CreateNote")}>
         <View style={styles.plusIcon}>
           <FontAwesome5 name="plus" size={30} style={{ color: '#e01f99' }} />
         </View>
@@ -84,12 +85,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 10,
     backgroundColor: '#eacceb',
-    marginLeft: 50,
+    marginLeft: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
   backIcon: {
-    top: -45,
+    top: -40,
     justifyContent: 'center',
     alignItems: 'center',
   },
