@@ -45,7 +45,7 @@ class Drawer extends Component {
                             />
                             <Text style={styles.labelText}>{Names.label}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() =>{this.props.navigation.navigate("Archive")}}>
                             <Icon
                                 style={styles.icon}
                                 name="archive-outline"
@@ -54,7 +54,7 @@ class Drawer extends Component {
                             />
                             <Text style={styles.labelText}>{Names.archive}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("Trash")}} >
                             <Icon
                                 style={styles.icon}
                                 name="trash-outline"
@@ -73,7 +73,7 @@ class Drawer extends Component {
                             <Text style={styles.labelText}>{Names.setting}</Text>
                         </TouchableOpacity>    
                     </View>
-                    <View style= {styles.logoutView}>
+                    {/* <View style= {styles.logoutView}>
                     <TouchableOpacity style={styles.logout} >
                             <MaterialCommunityIcons
                                 style={styles.icon}
@@ -83,13 +83,14 @@ class Drawer extends Component {
                             />
                             <Text style={styles.labelText}>{Names.logout}</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                     
                 </DrawerContentScrollView>
             </View>
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1
@@ -115,10 +116,8 @@ const styles = StyleSheet.create({
     },
     labelView: {
         alignItems: 'flex-start',
-        marginLeft: 20,
+        marginLeft: 5,
         borderBottomColor: '#ccc',
-        borderBottomWidth: 1,
-        
     },
     labelText: {
         fontFamily: 'Roboto-Medium',

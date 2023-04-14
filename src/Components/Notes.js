@@ -1,72 +1,127 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, RefreshControl} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, RefreshControl,FlatList } from 'react-native';
 import React, { useContext, useEffect, useCallback, useState } from 'react'
 import { fetchNoteData } from '../Services/NoteServices';
 import { AuthContext } from '../navigation/AuthProvider';
+import { useIsFocused } from '@react-navigation/native';
+import NoteCard from './NoteCard';
 
-
-const Notes = ({navigation}) => {
-  const [noteDetails, setNoteDetails] = useState([]);
+const Notes = ({ navigation, layout }) => {
+  const [pinnedNotes, setPinnedNotes] = useState([])
+  const [otherNotes, setOtherNotes] = useState([])
   
   const { user } = useContext(AuthContext);
-
+  const focused = useIsFocused()
+  
   useEffect(() => {
-    getNoteData();
-  }, [getNoteData]);
-
-  let nData = []
-
+    if(focused) {
+      getNoteData();
+    }  
+  }, [getNoteData, focused]);
+  
   const getNoteData = useCallback(async () => {
+    let pinnedData = []
+    let otherData = []
     let noteData = await fetchNoteData(user.uid);
     noteData.forEach(data => {
-      
-        nData.push(data)  
+      if (data.pin) {
+        pinnedData.push(data)
+      } if (!data.pin && !data.archive && !data.deleted ) {
+        otherData.push(data);
+      }
     })
-    console.log(noteData)
-    setNoteDetails(nData) 
-    setLoading(false)   
+    setPinnedNotes(pinnedData)
+    setOtherNotes(otherData) 
   }, [user.uid])
 
   const editNote = (item) => {
-    navigation.navigate("CreateNote",{item: item})
+    navigation.navigate("CreateNote", { item: item })
   }
 
- 
-  return (
-    <ScrollView style={styles.container} >
-      {
-        noteDetails.map ((item, index) => 
-          (
-            <View key={index} style={styles.noteView}>
-              <TouchableOpacity onPress={() => editNote(item)}>
-                <Text style={styles.titleText}>{item.title}</Text>
-                <Text style={styles.noteText}>{item.note}</Text>
-              </TouchableOpacity>
+  const pinnedNoteData = () => {
+    return (
+      <View style={styles.container}>
+        {pinnedNotes && (
+          <Text style={{fontSize:15, marginLeft:20, marginBottom:8}}>
+            {pinnedNotes.length ? 'Pinned' : null}
+          </Text>
+        )}
+        <FlatList
+          data={pinnedNotes}
+          ListFooterComponent={otherNoteData}
+          numColumns={layout? 1 : 2}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <View key={item.id} style={layout ? styles.listLayout : styles.gridLayout }>
+            <TouchableOpacity
+              onPress={() => {
+                editNote(item);
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
             </View>
-          )
-        )
-      }
-    </ScrollView>
-  )
-}
-export default Notes
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight:10
-  },
-  noteView: {
-    borderWidth: 1,
-    margin: 5,
-    borderRadius: 10,
-    padding: 8,
-    backgroundColor: '#f4e6f5'
-  },
-  titleText: {
-    fontSize:18
-  },
-  noteText: {
-    fontSize:14
+          )}
+        />
+      </View>
+    )
   }
-})
+
+  const otherNoteData = () => {
+    return (
+      <View style={styles.container}>
+        {pinnedNotes && (
+          <Text style={{fontSize:15, marginLeft:20, marginBottom:8,marginTop:5}}>
+            {pinnedNotes.length ? 'Others' : null}
+          </Text>
+        )}
+        <FlatList
+          data={otherNotes}
+          keyExtractor={item => item.id}
+          numColumns={ layout ? 1 : 2 }
+          renderItem={({ item }) => (
+            <View key={item.id} style={layout ? styles.listLayout : styles.gridLayout }>
+            <TouchableOpacity
+              onPress={() => {
+                editNote(item);
+              }}>
+             <NoteCard {...item} />
+            </TouchableOpacity>
+            </View>
+          )}
+        />
+      </View>
+    )
+  }
+  return (
+    <View>
+    
+      <FlatList
+        ListHeaderComponent={pinnedNoteData}
+      />
+    </View>
+  );
+}
+  export default Notes
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      
+    },
+    gridLayout: {
+      marginHorizontal: 8,
+      marginVertical: 6,
+      borderRadius: 10,
+      padding: 12,
+      width: 178,
+      borderWidth: 1,
+      backgroundColor: '#f4e6f5'
+    },
+    listLayout: {
+      borderWidth: 1,
+      marginVertical: 5,
+      marginHorizontal:10,
+      borderRadius: 10,
+      padding: 8,
+      backgroundColor: '#f4e6f5'
+    },
+  })

@@ -1,16 +1,16 @@
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import Feather from 'react-native-vector-icons/Feather'
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Sizes from '../Constants/Sizes'
 import Names from '../Constants/Names'
 import Popup from './Popup'
 import { Color } from '../Utility/Themes'
 
 
-const TopBar = ({onPress}) => {
-
-    return (
+const TopBar = ({onPress, layoutPress, layout}) => {
+        return (
+            <>
         <View style={styles.container}>
             <View style={styles.barStyle}>
                 <TouchableOpacity onPress={onPress}>
@@ -25,14 +25,16 @@ const TopBar = ({onPress}) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.grid}>
-                <TouchableOpacity>
-                    <Feather name="grid" color={'black'} size={25} />
+                <TouchableOpacity onPress={layoutPress}>
+                    <MaterialIcons name={ layout ? "view-grid-outline": 'view-agenda-outline'} color={'black'} size={25} />
                 </TouchableOpacity>
             </View>
             <View>
             <Popup />
-            </View>  
+            </View> 
         </View>
+        </>
+        
     )
 }
 
