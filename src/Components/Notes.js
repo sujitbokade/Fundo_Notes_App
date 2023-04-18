@@ -112,7 +112,7 @@ const Notes = ({ navigation, layout }) => {
       marginVertical: 6,
       borderRadius: 10,
       padding: 12,
-      width: 178,
+      width: "45%",
       borderWidth: 1,
       backgroundColor: '#f4e6f5'
     },

@@ -36,7 +36,7 @@ class Drawer extends Component {
                             />
                             <Text style={styles.labelText}>{Names.remainder}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("CreateLabels")}}>
                             <Icon
                                 style={styles.icon}
                                 name="add-outline"
@@ -73,18 +73,6 @@ class Drawer extends Component {
                             <Text style={styles.labelText}>{Names.setting}</Text>
                         </TouchableOpacity>    
                     </View>
-                    {/* <View style= {styles.logoutView}>
-                    <TouchableOpacity style={styles.logout} >
-                            <MaterialCommunityIcons
-                                style={styles.icon}
-                                name="logout"
-                                size={Sizes.normalButton}
-                                color={'black'}
-                            />
-                            <Text style={styles.labelText}>{Names.logout}</Text>
-                        </TouchableOpacity>
-                    </View> */}
-                    
                 </DrawerContentScrollView>
             </View>
         );

@@ -51,6 +51,7 @@ const CreateNote = ({ navigation, route }) => {
                     <MaterialCommunityIcons name={archive ? "archive-arrow-up-outline" : "archive-arrow-down-outline"} size={27} />
                 </TouchableOpacity>
             </View>
+            
             <View style={styles.view1}>
                 <TextInput
                     style={styles.titleText}
@@ -66,6 +67,7 @@ const CreateNote = ({ navigation, route }) => {
                 />
             </View>
             <View style={styles.bottomViewTwo}>
+            <View style={{flexDirection:"row",flex:2}}>
                 <TouchableOpacity >
                     <MaterialCommunityIcons
                         name="plus-box-outline"
@@ -77,7 +79,9 @@ const CreateNote = ({ navigation, route }) => {
                 <TouchableOpacity style={styles.colorButton}>
                     <Ionicons name="color-palette-outline" color="black" size={28} />
                 </TouchableOpacity>
-                    <TouchableOpacity
+                </View>
+                <View style={{}}>
+                    <TouchableOpacity 
                         onPress={() => {setBottomSheetVisible(!bottomSheetVisible)}}>
                         <MaterialCommunityIcons
                             name="dots-vertical"
@@ -85,6 +89,7 @@ const CreateNote = ({ navigation, route }) => {
                             size={28}
                         />
                     </TouchableOpacity>
+            </View>
             </View>
             <View>
         {bottomSheetVisible ? (
@@ -133,13 +138,15 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     bottomViewTwo: {
-        flex: 3,
+        flex:3,
         flexDirection: "row",
         alignItems: "flex-end",
-        marginLeft: 15
+        marginLeft: 15,
+        marginRight:10
+        
     },
     colorButton: {
         marginLeft: 15,
-        marginRight: 270
+        // marginRight: 250
     }
 })

@@ -7,8 +7,8 @@ import Names from '../Constants/Names'
 import Popup from './Popup'
 import { Color } from '../Utility/Themes'
 
-
 const TopBar = ({onPress, layoutPress, layout}) => {
+    
         return (
             <>
         <View style={styles.container}>
