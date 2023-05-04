@@ -23,7 +23,7 @@ const Notes = ({ navigation, layout }) => {
     let otherData = []
     let noteData = await fetchNoteData(user.uid);
     noteData.forEach(data => {
-      if (data.pin) {
+      if (data.pin && !data.deleted) {
         pinnedData.push(data)
       } if (!data.pin && !data.archive && !data.deleted ) {
         otherData.push(data);
@@ -108,11 +108,11 @@ const Notes = ({ navigation, layout }) => {
       
     },
     gridLayout: {
-      marginHorizontal: 8,
+     marginLeft:6,
       marginVertical: 6,
       borderRadius: 10,
       padding: 12,
-      width: "45%",
+      width: "48%",
       borderWidth: 1,
       backgroundColor: '#f4e6f5'
     },

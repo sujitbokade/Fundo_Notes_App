@@ -7,7 +7,7 @@ import Names from '../Constants/Names'
 import Popup from './Popup'
 import { Color } from '../Utility/Themes'
 
-const TopBar = ({onPress, layoutPress, layout}) => {
+const TopBar = ({navigation, onPress,layoutPress, layout}) => {
     
         return (
             <>
@@ -20,7 +20,7 @@ const TopBar = ({onPress, layoutPress, layout}) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.search}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("SearchNotes")} >
                     <Text style={{ fontSize: 18 }}>{Names.search}</Text>
                 </TouchableOpacity>
             </View>

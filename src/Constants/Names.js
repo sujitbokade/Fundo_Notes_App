@@ -9,6 +9,7 @@ export default {
  account: 'Do not have a account?',
  signUp: 'SignUp',
  registration: 'Registration',
+ fullName: 'user full name',
  signUpButton: 'Sign-Up',
  alreadyReg: 'Already Registered?',
  validEmail: 'please enter a valid email',
@@ -21,6 +22,8 @@ export default {
  archive: 'Archive',
  deleted: 'Trash',
  setting:'Setting',
- logout: 'SignOut'
+ logout: 'SignOut',
+ labelName: 'Enter label name',
+ createLabel: 'Create new label'
 
 }

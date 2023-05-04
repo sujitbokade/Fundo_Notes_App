@@ -1,8 +1,8 @@
 import fireStore from '@react-native-firebase/firestore'
 
 
-export const addUserNotes = async (title, note, pin, archive, deleted, user) => {
-    await fireStore().collection('Users').doc(user).collection("Notes").add({ title, note, pin, archive,deleted })
+export const addUserNotes = async (title, note, pin, archive, deleted, labelData, notificationDateAndTime, user) => {
+    await fireStore().collection('Users').doc(user).collection("Notes").add({ title, note, pin, archive,deleted, labelData, notificationDateAndTime })
      
 }
 
@@ -22,7 +22,7 @@ export const fetchNoteData = async (user) => {
     }
 };
 
-export const updateNoteData = async (title,note, pin, archive,deleted, noteId, user) => {
+export const updateNoteData = async (title,note, pin, archive,deleted, labelData, notificationDateAndTime, noteId,  user) => {
     try {
         await fireStore().collection('Users').doc(user).collection('Notes').doc(noteId)
         .update({
@@ -30,10 +30,21 @@ export const updateNoteData = async (title,note, pin, archive,deleted, noteId, u
             note: note,
             pin: pin,
             archive: archive,
-            deleted: deleted
+            deleted: deleted,
+            labelData: labelData,
+            notificationDateAndTime: notificationDateAndTime
           });
     } catch(e){
         console.log(e)
     }
    
+  };
+  
+
+  export const deleteNoteData = async (user, noteId) => {
+    try {
+      await fireStore().collection('Users').doc(user).collection('Notes').doc(noteId).delete();   
+    } catch (e) {
+      console.log(e);
+    }
   };

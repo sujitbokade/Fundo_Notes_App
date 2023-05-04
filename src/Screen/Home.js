@@ -7,7 +7,6 @@ import { changeLayout } from '../Redux/Action'
 import {useSelector, useDispatch} from 'react-redux';
 
 const Home = ({ navigation }) => {
-  // const [layout, setLayout] = React.useState(false)
   const layout = useSelector(state => state.layout);
   const dispatch = useDispatch();
   return (
@@ -17,6 +16,7 @@ const Home = ({ navigation }) => {
          onPress={() => { navigation.openDrawer() }} 
         layoutPress={() => dispatch(changeLayout())}
         layout={layout}
+        navigation={navigation}
          />
       </View>
       <View style={{ flex: 3 }}>

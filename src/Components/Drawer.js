@@ -36,6 +36,7 @@ class Drawer extends Component {
                             />
                             <Text style={styles.labelText}>{Names.remainder}</Text>
                         </TouchableOpacity>
+
                         <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("CreateLabels")}}>
                             <Icon
                                 style={styles.icon}

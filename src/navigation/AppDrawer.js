@@ -17,8 +17,7 @@ const AppDrawer = () => {
             <Drawers.Screen name = "Note" component = {Home} />
             <Drawers.Screen name = "Archive" component = {Archive} />
             <Drawers.Screen name = "Trash" component = {Trash} />
-            <Drawers.Screen name = "CreateLabels" component = {CreateLabels} />
-            
+            <Drawers.Screen name = "CreateLabels" component = {CreateLabels} /> 
         </Drawers.Navigator>
     );
 };

@@ -32,12 +32,12 @@ const Login = ({ navigation }) => {
 
     const handleCheckEmail = (text) => {
         setEmail(text)
-        let regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        let regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
         if (regexMail.test(text)) {
             setCheckValidEmail(false);
         } else {
             setCheckValidEmail(true);
-        }
+        }     
     };
     const handleCheckPassword = (text) => {
         setPassword(text)
@@ -53,10 +53,11 @@ const Login = ({ navigation }) => {
         const temp = {}
         if (code == 'auth/user-not-found') {
             temp.email = "User not found"
+        } if(code == "auth/wrong-password"){
+            temp.password = "Wrong Password"
         }
         setError(temp)
     }
-
 
     return (
         <View style={styles.container}>
@@ -82,8 +83,11 @@ const Login = ({ navigation }) => {
                 ) : (
                     null
                 )}
-                <Text style={{ color: 'red' }}>{error.email}</Text>
-
+                {
+                   error? (<Text style={{ color: 'red' }}>{error.email}</Text>) : (null)
+                }
+            
+                
                 <View style={styles.input}>
                     <Ionicons name='ios-lock-closed-outline' size={20} style={{ marginRight: 5 }} />
                     <View style={{ width: 280 }}>
@@ -108,6 +112,10 @@ const Login = ({ navigation }) => {
                 ) : (
                     null
                 )}
+                {
+                    error ? (<Text style={{ color: 'red' }}>{error.password}</Text>) : (null)
+                }
+                
             </View>
 
             <View>

@@ -58,7 +58,7 @@ const SignUp = (props) => {
             <View style={styles.signUpInputView}>
                 <View style={styles.input}>
                     <Ionicons name='person-outline' size={20} style={{ marginRight: 5 }} />
-                    <TextInput placeholder='user full name'
+                    <TextInput placeholder={Names.fullName}
                                 value={fullName}
                                 onChangeText={(data) => setFullName(data)}
                     />

@@ -34,6 +34,13 @@ const Trash = ({ navigation }) => {
         setDeletedNotes(deletedData)
     }, [user.uid])
 
+    const editNotes = item => {
+        navigation.navigate('TrashNote', {
+          item : item,
+          noteId: item.id,
+        });
+      };
+
     return (
         <View style={styles.container}>
             <View style={styles.view}>
@@ -57,7 +64,7 @@ const Trash = ({ navigation }) => {
                     renderItem={({ item }) => (
                         <View key={item.id} style={layout ? styles.listLayout : styles.gridLayout}>
                             <TouchableOpacity
-                                onPress={() => { }}
+                                onPress={() => {editNotes(item)}}
                             >
                                 <NoteCard {...item} />
                             </TouchableOpacity>

@@ -6,19 +6,29 @@ import { AuthContext } from '../navigation/AuthProvider';
 import { addUserLabels, fetchLabelData} from '../Services/LabelServices'
 import { useIsFocused } from '@react-navigation/native';
 import LabelCard from '../Components/LabelCard';
+import {useSelector, useDispatch} from 'react-redux';
+import { labelsData } from '../Redux/Action';
+import Names from '../Constants/Names';
 
 const CreateLabels = ({ navigation }) => {
   const [icon, setIcon] = useState(false)
   const [label, setLabel] = useState("")
-  const [labelData, setLabelData] = useState([])
   const { user } = useContext(AuthContext)
   const focused = useIsFocused()
+  const labelData = useSelector(state => state.labelData);
+  const dispatch = useDispatch();
+
+  const fetchData = useCallback( async () => {
+    
+    let data = await fetchLabelData(user.uid);
+    dispatch(labelsData(data));
+  },[user.uid, dispatch])
 
   useEffect(() => {
     if(focused) {
       fetchData();
     }  
-  }, [focused]);
+  }, [focused, fetchData]);
 
   const addButton = async () => {
     setIcon(!icon);
@@ -28,15 +38,6 @@ const CreateLabels = ({ navigation }) => {
     setIcon(!icon);
     setLabel("")
   }
-
-  const fetchData = useCallback( async () => {
-    let temp = []
-    const data = await fetchLabelData(user.uid)
-    data.forEach(item => {
-      temp.push(item)
-    })
-    setLabelData(temp)
-  },[user.uid])
 
   const changeIcons = text => {
     setLabel(text);
@@ -79,7 +80,7 @@ const CreateLabels = ({ navigation }) => {
       
         <TextInput
           style={styles.textInput}
-          placeholder="Create new label"
+          placeholder={Names.createLabel}
           value={label}
           onChangeText={(text) => changeIcons(text)}
         />
